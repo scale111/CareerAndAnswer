@@ -9,6 +9,7 @@ export const DICT_TYPE = {
   USER_TYPE: 'user_type',
   COMMON_STATUS: 'common_status',
   TERMINAL: 'terminal',
+  MEMBER_USER_ROLE: 'member_user_role',
 
   // ========== SYSTEM 模块 ==========
   SYSTEM_USER_SEX: 'system_user_sex',

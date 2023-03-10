@@ -1,12 +1,22 @@
 package cn.iocoder.yudao.module.member.service.user;
 
+
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.module.member.controller.admin.user.vo.MemberUserCreateReqVO;
+import cn.iocoder.yudao.module.member.controller.admin.user.vo.MemberUserExportReqVO;
+import cn.iocoder.yudao.module.member.controller.admin.user.vo.MemberUserPageReqVO;
+import cn.iocoder.yudao.module.member.controller.admin.user.vo.MemberUserUpdateReqVO;
+import cn.iocoder.yudao.module.member.convert.user.UserConvert;
+import cn.iocoder.yudao.module.member.dal.mysql.user.MemberUserMapper;
+
+import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static cn.iocoder.yudao.module.member.enums.ErrorCodeConstants.*;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
 import cn.iocoder.yudao.module.infra.api.file.FileApi;
 import cn.iocoder.yudao.module.member.controller.app.user.vo.AppUserUpdateMobileReqVO;
 import cn.iocoder.yudao.module.member.dal.dataobject.user.MemberUserDO;
-import cn.iocoder.yudao.module.member.dal.mysql.user.MemberUserMapper;
 import cn.iocoder.yudao.module.system.api.sms.SmsCodeApi;
 import cn.iocoder.yudao.module.system.api.sms.dto.code.SmsCodeUseReqDTO;
 import cn.iocoder.yudao.module.system.enums.sms.SmsSceneEnum;
@@ -20,18 +30,17 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.Date;
+
 import java.util.List;
 import java.time.LocalDateTime;
 
-import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static cn.iocoder.yudao.framework.common.util.servlet.ServletUtils.getClientIP;
 import static cn.iocoder.yudao.module.member.enums.ErrorCodeConstants.USER_NOT_EXISTS;
 
 /**
- * 会员 User Service 实现类
+ * 用户登录表 Service 实现类
  *
- * @author 芋道源码
+ * @author SZT
  */
 @Service
 @Valid
@@ -48,6 +57,53 @@ public class MemberUserServiceImpl implements MemberUserService {
 
     @Resource
     private PasswordEncoder passwordEncoder;
+
+
+    @Resource
+    private MemberUserMapper userMapper;
+
+    @Override
+    public Long createUser(MemberUserCreateReqVO createReqVO) {
+        // 插入
+        MemberUserDO user = UserConvert.INSTANCE.convert(createReqVO);
+        userMapper.insert(user);
+        // 返回
+        return user.getId();
+    }
+
+    @Override
+    public void updateUser(MemberUserUpdateReqVO updateReqVO) {
+        // 校验存在
+        validateUserExists(updateReqVO.getId());
+        // 更新
+        MemberUserDO updateObj = UserConvert.INSTANCE.convert(updateReqVO);
+        userMapper.updateById(updateObj);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        // 校验存在
+        validateUserExists(id);
+        // 删除
+        userMapper.deleteById(id);
+    }
+
+    private void validateUserExists(Long id) {
+        if (userMapper.selectById(id) == null) {
+            throw exception(USER_NOT_EXISTS);
+        }
+    }
+
+    @Override
+    public PageResult<MemberUserDO> getUserPage(MemberUserPageReqVO pageReqVO) {
+        return userMapper.selectPage(pageReqVO);
+    }
+
+    @Override
+    public List<MemberUserDO> getUserList(MemberUserExportReqVO exportReqVO) {
+        return userMapper.selectList(exportReqVO);
+    }
+
 
     @Override
     public MemberUserDO getUserByMobile(String mobile) {

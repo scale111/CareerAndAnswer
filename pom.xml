@@ -23,6 +23,12 @@
 <!--        <module>yudao-module-mall</module>-->
         <!-- 示例项目 -->
         <module>yudao-example</module>
+
+        <!--资讯模块-->
+        <module>yudao-module-information</module>
+        <!--论坛模块-->
+        <module>yudao-module-forum</module>
+
     </modules>
 
     <name>${project.artifactId}</name>

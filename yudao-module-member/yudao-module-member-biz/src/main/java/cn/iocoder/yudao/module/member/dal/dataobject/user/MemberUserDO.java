@@ -50,6 +50,16 @@ public class MemberUserDO extends TenantBaseDO {
      * 手机
      */
     private String mobile;
+
+    /**
+     * 用户角色：0-游客 1-学生 2-导师
+     */
+    private Integer role;
+    /**
+     * 微信openid
+     */
+    private String openid;
+
     /**
      * 加密后的密码
      *

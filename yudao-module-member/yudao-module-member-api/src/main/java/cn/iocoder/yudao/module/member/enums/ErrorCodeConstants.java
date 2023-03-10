@@ -23,4 +23,10 @@ public interface ErrorCodeConstants {
     // ========== 用户收件地址 1004004000 ==========
     ErrorCode ADDRESS_NOT_EXISTS = new ErrorCode(1004004000, "用户收件地址不存在");
 
+    // ========== 学生信息 1004006000 ==========
+    ErrorCode STUDENT_NOT_EXISTS = new ErrorCode(1004006000, "学生信息不存在");
+
+    // ========== 导师信息 1004007000 ==========
+    ErrorCode MENTOR_NOT_EXISTS = new ErrorCode(1004007000, "导师信息不存在");
+
 }

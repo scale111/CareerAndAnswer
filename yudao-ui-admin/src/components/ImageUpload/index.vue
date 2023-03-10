@@ -85,7 +85,7 @@ export default {
     value: {
       handler(val) {
         if (val) {
-          // 首先将值转为数组, 当只穿了一个图片时，会报map方法错误
+          // 首先将值转为数组, 当只传了一个图片时，会报map方法错误
           const list = Array.isArray(val) ? val :  Array.isArray(this.value.split(',')) ? this.value.split(','): Array.of(this.value);
           // 然后将数组转为对象数组
           this.fileList = list.map(item => {
