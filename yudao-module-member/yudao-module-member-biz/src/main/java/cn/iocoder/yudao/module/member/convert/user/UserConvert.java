@@ -21,6 +21,7 @@ public interface UserConvert {
     UserConvert INSTANCE = Mappers.getMapper(UserConvert.class);
 
     AppUserInfoRespVO convert(MemberUserDO bean);
+
     MemberUserRespDTO convert2(MemberUserDO bean);
     List<MemberUserRespDTO> convertList2(List<MemberUserDO> list);
 

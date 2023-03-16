@@ -9,7 +9,19 @@ export const DICT_TYPE = {
   USER_TYPE: 'user_type',
   COMMON_STATUS: 'common_status',
   TERMINAL: 'terminal',
+
+//============ MEMBER 模块 ==========
+  //用户登录角色：0-游客 1-学生 2-导师
   MEMBER_USER_ROLE: 'member_user_role',
+
+  //============ Information 模块 ==========
+  //学历类型：0-大专 1-本科 2-硕士 3-博士
+  INFORMATION_RECRUITMENT_EDUCATION: 'information_recruitment_education',
+  //招聘类型：0-实习 1-全职
+  INFORMATION_RECRUITMENT_TYPE:'information_recruitment_type',
+
+  //招聘会类型：0-校园招聘 1-网络招聘
+  INFORMATION_JOBFAIR_TYPE:'information_jobfair_type',
 
   // ========== SYSTEM 模块 ==========
   SYSTEM_USER_SEX: 'system_user_sex',
