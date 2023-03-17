@@ -13,7 +13,21 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author SZT
  */
 
-public interface JobfairService extends IService<JobfairDO> {
+public interface JobfairService  {
+    /**
+     * 关注招聘会
+     *
+     * @param id 招聘会id
+     */
+    void follow(Long id);
+
+    /**
+     * 取消关注招聘会
+     *
+     * @param id 招聘会id
+     */
+    void unfollow(Long id);
+
     /**
      * 创建招聘会
      *

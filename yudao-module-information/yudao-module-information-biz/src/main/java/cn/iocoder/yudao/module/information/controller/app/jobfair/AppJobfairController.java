@@ -51,26 +51,26 @@ public class AppJobfairController {
         return success(JobfairConvert.INSTANCE.appConvertList(list));
     }
 
+    @GetMapping("/get")
+    @Operation(summary = "根据id获得招聘会信息")
+    @Parameter(name = "id", description = "编号", required = true, example = "1024")
+    public CommonResult<AppJobfairRespVO> getJobfair(@RequestParam("id") Long id) {
+        JobfairDO jobfair = jobfairService.getJobfair(id);
+        return success(JobfairConvert.INSTANCE.appConvert(jobfair));
+    }
+
     @GetMapping("/follow")
     @Operation(summary = "关注招聘会")
-    public CommonResult<AppJobfairConcernsVO> follow(@RequestParam("id") Long id) {
-        UpdateWrapper<JobfairDO> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id",id).setSql("concerns_number = concerns_number + 1");
-        jobfairMapper.update(null,updateWrapper);
-
-        JobfairDO jobfairDO = jobfairService.getJobfair(id);
-        return success(JobfairConvert.INSTANCE.concernsConvert(jobfairDO));
+    public CommonResult<Boolean> follow(@RequestParam("id") Long id) {
+        jobfairService.follow(id);
+        return success(true);
     }
 
     @GetMapping("/unfollow")
     @Operation(summary = "取消关注招聘会")
-    public CommonResult<AppJobfairConcernsVO> unfollow(@RequestParam("id") Long id) {
-        UpdateWrapper<JobfairDO> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id",id).setSql("concerns_number = concerns_number - 1");
-        jobfairMapper.update(null,updateWrapper);
-
-        JobfairDO jobfairDO = jobfairService.getJobfair(id);
-        return success(JobfairConvert.INSTANCE.concernsConvert(jobfairDO));
+    public CommonResult<Boolean> unfollow(@RequestParam("id") Long id) {
+        jobfairService.unfollow(id);
+        return success(true);
     }
 
 

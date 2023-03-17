@@ -53,26 +53,26 @@ public class AppCareertalkController {
         return success(CareertalkConvert.INSTANCE.appConvertList(list));
     }
 
+    @GetMapping("/get")
+    @Operation(summary = "根据id获得宣讲会信息")
+    @Parameter(name = "id", description = "编号", required = true, example = "1024")
+    public CommonResult<AppCareertalkRespVO> getCareertalk(@RequestParam("id") Long id) {
+        CareertalkDO careertalkDO = careertalkService.getCareertalk(id);
+        return success(CareertalkConvert.INSTANCE.appConvert(careertalkDO));
+    }
+
     @GetMapping("/follow")
     @Operation(summary = "关注宣讲会")
-    public CommonResult<AppCareertalkConcernsVO> follow(@RequestParam("id") Long id) {
-        UpdateWrapper<CareertalkDO> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id",id).setSql("concerns_number = concerns_number + 1");
-        careertalkMapper.update(null,updateWrapper);
-
-        CareertalkDO careertalkDO = careertalkService.getCareertalk(id);
-        return success(CareertalkConvert.INSTANCE.concernsConvert(careertalkDO));
+    public CommonResult<Boolean> follow(@RequestParam("id") Long id) {
+        careertalkService.follow(id);
+        return success(true);
     }
 
     @GetMapping("/unfollow")
     @Operation(summary = "取消关注宣讲会")
-    public CommonResult<AppCareertalkConcernsVO> unfollow(@RequestParam("id") Long id) {
-        UpdateWrapper<CareertalkDO> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id",id).setSql("concerns_number = concerns_number - 1");
-        careertalkMapper.update(null,updateWrapper);
-
-        CareertalkDO careertalkDO = careertalkService.getCareertalk(id);
-        return success(CareertalkConvert.INSTANCE.concernsConvert(careertalkDO));
+    public CommonResult<Boolean> unfollow(@RequestParam("id") Long id) {
+        careertalkService.unfollow(id);
+        return success(true);
     }
 
 }

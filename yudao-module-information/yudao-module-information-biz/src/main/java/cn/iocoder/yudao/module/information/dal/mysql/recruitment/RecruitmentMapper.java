@@ -6,6 +6,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.module.information.dal.dataobject.recruitment.RecruitmentDO;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.apache.ibatis.annotations.Mapper;
 import cn.iocoder.yudao.module.information.controller.admin.recruitment.vo.*;
 
@@ -16,6 +17,29 @@ import cn.iocoder.yudao.module.information.controller.admin.recruitment.vo.*;
  */
 @Mapper
 public interface RecruitmentMapper extends BaseMapperX<RecruitmentDO> {
+
+    /**
+     * 关注招聘信息
+     * 根据id让concerns_number加1
+     * @param id
+     */
+    default void follow(Long id) {
+        LambdaUpdateWrapper<RecruitmentDO> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(RecruitmentDO::getId, id)
+                .setSql("concerns_number = concerns_number + 1");
+        this.update(null, wrapper);
+    }
+
+    /**
+     * 取消关注招聘信息
+     * @param id
+     */
+    default void unfollow(Long id) {
+        LambdaUpdateWrapper<RecruitmentDO> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(RecruitmentDO::getId, id)
+                .setSql("concerns_number = concerns_number - 1");
+        this.update(null, wrapper);
+    }
 
     default PageResult<RecruitmentDO> selectPage(RecruitmentPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<RecruitmentDO>()

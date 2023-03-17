@@ -23,10 +23,20 @@ import static cn.iocoder.yudao.module.information.enums.ErrorCodeConstants.*;
  */
 @Service
 @Validated
-public class JobfairServiceImpl extends ServiceImpl<JobfairMapper,JobfairDO> implements JobfairService {
+public class JobfairServiceImpl  implements JobfairService {
 
     @Resource
     private JobfairMapper jobfairMapper;
+
+    @Override
+    public void follow(Long id) {
+        jobfairMapper.follow(id);
+    }
+
+    @Override
+    public void unfollow(Long id) {
+        jobfairMapper.unfollow(id);
+    }
 
     @Override
     public Long createJobfair(JobfairCreateReqVO createReqVO) {

@@ -30,8 +30,6 @@ public class AppRecruitmentController {
 
     @Resource
     private RecruitmentService recruitmentService;
-    @Resource
-    private RecruitmentMapper recruitmentMapper;
 
     @GetMapping("/getall")
     @Operation(summary = "获得全部招聘信息")
@@ -40,26 +38,26 @@ public class AppRecruitmentController {
         return success(RecruitmentConvert.INSTANCE.appConvertList(list));
     }
 
+    @GetMapping("/get")
+    @Operation(summary = "根据id获得招聘信息")
+    @Parameter(name = "id", description = "编号", required = true, example = "1024")
+    public CommonResult<AppRecruitmentRespVO> getRecruitment(@RequestParam("id") Long id) {
+        RecruitmentDO recruitmentDO = recruitmentService.getRecruitment(id);
+        return success(RecruitmentConvert.INSTANCE.appConvert(recruitmentDO));
+    }
+
     @GetMapping("/follow")
     @Operation(summary = "关注招聘信息")
-    public CommonResult<AppRecruitmentConcernsVO> follow(@RequestParam("id") Long id) {
-        UpdateWrapper<RecruitmentDO> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id",id).setSql("concerns_number = concerns_number + 1");
-        recruitmentMapper.update(null,updateWrapper);
-
-        RecruitmentDO recruitmentDO = recruitmentService.getRecruitment(id);
-        return success(RecruitmentConvert.INSTANCE.concernsConvert(recruitmentDO));
+    public CommonResult<Boolean> follow(@RequestParam("id") Long id) {
+        recruitmentService.follow(id);
+        return success(true);
     }
 
     @GetMapping("/unfollow")
     @Operation(summary = "取消关注招聘信息")
-    public CommonResult<AppRecruitmentConcernsVO> unfollow(@RequestParam("id") Long id) {
-        UpdateWrapper<RecruitmentDO> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id",id).setSql("concerns_number = concerns_number - 1");
-        recruitmentMapper.update(null,updateWrapper);
-
-        RecruitmentDO recruitmentDO = recruitmentService.getRecruitment(id);
-        return success(RecruitmentConvert.INSTANCE.concernsConvert(recruitmentDO));
+    public CommonResult<Boolean> unfollow(@RequestParam("id") Long id) {
+        recruitmentService.unfollow(id);
+        return success(true);
     }
 
 

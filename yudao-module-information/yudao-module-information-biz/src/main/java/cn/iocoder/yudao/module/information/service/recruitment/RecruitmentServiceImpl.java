@@ -23,10 +23,20 @@ import static cn.iocoder.yudao.module.information.enums.ErrorCodeConstants.*;
  */
 @Service
 @Validated
-public class RecruitmentServiceImpl extends ServiceImpl<RecruitmentMapper,RecruitmentDO> implements RecruitmentService {
+public class RecruitmentServiceImpl implements RecruitmentService {
 
     @Resource
     private RecruitmentMapper recruitmentMapper;
+
+    @Override
+    public void follow(Long id) {
+        recruitmentMapper.follow(id);
+    }
+
+    @Override
+    public void unfollow(Long id) {
+        recruitmentMapper.unfollow(id);
+    }
 
     @Override
     public Long createRecruitment(RecruitmentCreateReqVO createReqVO) {

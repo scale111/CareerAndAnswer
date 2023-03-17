@@ -14,7 +14,21 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author SZT
  */
 
-public interface RecruitmentService extends IService<RecruitmentDO> {
+public interface RecruitmentService {
+
+    /**
+     * 关注招聘信息
+     *
+     * @param id 招聘信息id
+     */
+    void follow(Long id);
+
+    /**
+     * 取消关注招聘信息
+     *
+     * @param id 招聘信息id
+     */
+    void unfollow(Long id);
 
     /**
      * 创建招聘信息

@@ -23,9 +23,19 @@ import static cn.iocoder.yudao.module.information.enums.ErrorCodeConstants.*;
  */
 @Service
 @Validated
-public class CareertalkServiceImpl extends ServiceImpl<CareertalkMapper,CareertalkDO> implements CareertalkService {
+public class CareertalkServiceImpl implements CareertalkService {
     @Resource
     private CareertalkMapper careertalkMapper;
+
+    @Override
+    public void follow(Long id) {
+        careertalkMapper.follow(id);
+    }
+
+    @Override
+    public void unfollow(Long id) {
+        careertalkMapper.unfollow(id);
+    }
 
     @Override
     public Long createCareertalk(CareertalkCreateReqVO createReqVO) {

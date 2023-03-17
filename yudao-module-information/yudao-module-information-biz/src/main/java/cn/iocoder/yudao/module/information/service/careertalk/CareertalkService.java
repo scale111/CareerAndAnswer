@@ -13,7 +13,21 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *
  * @author SZT
  */
-public interface CareertalkService extends IService<CareertalkDO> {
+public interface CareertalkService {
+    /**
+     * 关注宣讲会
+     *
+     * @param id 宣讲会id
+     */
+    void follow(Long id);
+
+    /**
+     * 取消关注宣讲会
+     *
+     * @param id 宣讲会id
+     */
+    void unfollow(Long id);
+
     /**
      * 创建宣讲会
      *

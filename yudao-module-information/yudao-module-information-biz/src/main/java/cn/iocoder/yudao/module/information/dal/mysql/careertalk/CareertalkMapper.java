@@ -6,6 +6,8 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.module.information.dal.dataobject.careertalk.CareertalkDO;
+import cn.iocoder.yudao.module.information.dal.dataobject.recruitment.RecruitmentDO;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.apache.ibatis.annotations.Mapper;
 import cn.iocoder.yudao.module.information.controller.admin.careertalk.vo.*;
 
@@ -16,6 +18,29 @@ import cn.iocoder.yudao.module.information.controller.admin.careertalk.vo.*;
  */
 @Mapper
 public interface CareertalkMapper extends BaseMapperX<CareertalkDO> {
+
+    /**
+     * 关注宣讲会
+     * 根据id让concerns_number加1
+     * @param id
+     */
+    default void follow(Long id) {
+        LambdaUpdateWrapper<CareertalkDO> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(CareertalkDO::getId, id)
+                .setSql("concerns_number = concerns_number + 1");
+        this.update(null, wrapper);
+    }
+
+    /**
+     * 取消关注宣讲会
+     * @param id
+     */
+    default void unfollow(Long id) {
+        LambdaUpdateWrapper<CareertalkDO> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(CareertalkDO::getId, id)
+                .setSql("concerns_number = concerns_number - 1");
+        this.update(null, wrapper);
+    }
 
     default PageResult<CareertalkDO> selectPage(CareertalkPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<CareertalkDO>()
