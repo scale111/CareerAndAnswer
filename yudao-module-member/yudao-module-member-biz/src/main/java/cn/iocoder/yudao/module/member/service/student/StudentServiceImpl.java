@@ -1,5 +1,7 @@
 package cn.iocoder.yudao.module.member.service.student;
 
+import cn.iocoder.yudao.framework.mybatis.core.query.QueryWrapperX;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -62,6 +64,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDO getStudent(Long id) {
         return studentMapper.selectById(id);
+    }
+
+    @Override
+    public StudentDO getStudentByMobile(String mobile) {
+        return studentMapper.selectByMobile(mobile);
     }
 
     @Override

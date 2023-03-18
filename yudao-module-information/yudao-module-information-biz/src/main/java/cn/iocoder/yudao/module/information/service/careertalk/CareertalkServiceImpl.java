@@ -1,5 +1,7 @@
 package cn.iocoder.yudao.module.information.service.careertalk;
 
+import cn.iocoder.yudao.module.information.dal.dataobject.jobfair.JobfairDO;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -76,7 +78,13 @@ public class CareertalkServiceImpl implements CareertalkService {
 
     @Override
     public List<CareertalkDO> getAllCareertalks() {
-        return careertalkMapper.selectList();
+//        QueryWrapper<CareertalkDO> wrapper = new QueryWrapper<>();
+//        //查询所有开启状态的数据
+//        wrapper.eq("status", 0);
+//        return careertalkMapper.selectList();
+
+        //BaseMapperX进一步封装
+        return careertalkMapper.selectList("status", 0);
     }
 
     @Override

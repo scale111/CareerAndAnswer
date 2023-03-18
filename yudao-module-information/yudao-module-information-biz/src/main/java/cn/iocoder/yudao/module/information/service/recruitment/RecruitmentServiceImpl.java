@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.information.service.recruitment;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -77,7 +78,13 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
     @Override
     public List<RecruitmentDO> getAllRecruitments() {
-        return recruitmentMapper.selectList();
+//        QueryWrapper<RecruitmentDO> wrapper = new QueryWrapper<>();
+//        //查询所有开启状态的数据
+//        wrapper.eq("status", 0);
+//        return recruitmentMapper.selectList(wrapper);
+
+        //BaseMapperX进一步封装
+        return recruitmentMapper.selectList("status",0);
     }
 
     @Override

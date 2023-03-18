@@ -4,6 +4,7 @@ import java.util.*;
 
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
+import cn.iocoder.yudao.module.member.controller.app.student.vo.AppStudentRespVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import cn.iocoder.yudao.module.member.controller.admin.student.vo.*;
@@ -30,5 +31,15 @@ public interface StudentConvert {
     PageResult<StudentRespVO> convertPage(PageResult<StudentDO> page);
 
     List<StudentExcelVO> convertList02(List<StudentDO> list);
+
+    //===============   APP     ==============
+
+
+//    StudentDO convert(AppStudentUpdateReqVO bean);
+
+    AppStudentRespVO appConvert(StudentDO bean);
+
+    List<AppStudentRespVO> appConvertList(List<StudentDO> list);
+
 
 }

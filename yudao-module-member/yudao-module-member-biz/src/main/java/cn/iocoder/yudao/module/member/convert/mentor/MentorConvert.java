@@ -4,6 +4,7 @@ import java.util.*;
 
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
+import cn.iocoder.yudao.module.member.controller.app.mentor.vo.AppMentorRespVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import cn.iocoder.yudao.module.member.controller.admin.mentor.vo.*;
@@ -30,5 +31,16 @@ public interface MentorConvert {
     PageResult<MentorRespVO> convertPage(PageResult<MentorDO> page);
 
     List<MentorExcelVO> convertList02(List<MentorDO> list);
+
+
+    //====================  APP  ======================
+
+    AppMentorRespVO appConvert(MentorDO bean);
+
+    List<AppMentorRespVO> appConvertList(List<MentorDO> list);
+
+//    PageResult<AppMentorRespVO> convertPage(PageResult<MentorDO> page);
+
+
 
 }

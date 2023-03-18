@@ -44,6 +44,14 @@ public interface StudentService {
     StudentDO getStudent(Long id);
 
     /**
+     * 根据手机号获得学生信息
+     *
+     * @param mobile 编号
+     * @return 学生信息
+     */
+    StudentDO getStudentByMobile(String mobile);
+
+    /**
      * 获得学生信息列表
      *
      * @param ids 编号

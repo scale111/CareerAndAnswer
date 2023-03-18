@@ -44,6 +44,13 @@ public interface MentorService {
     MentorDO getMentor(Long id);
 
     /**
+     * 获得所有导师信息
+     *
+     * @return 导师信息
+     */
+    List<MentorDO> getAllMentors();
+
+    /**
      * 获得导师信息列表
      *
      * @param ids 编号

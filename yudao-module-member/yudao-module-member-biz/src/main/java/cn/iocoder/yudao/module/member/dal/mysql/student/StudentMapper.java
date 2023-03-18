@@ -17,6 +17,19 @@ import cn.iocoder.yudao.module.member.controller.admin.student.vo.*;
 @Mapper
 public interface StudentMapper extends BaseMapperX<StudentDO> {
 
+    /**
+     * 根据手机号获得学生信息
+     *
+     * @param mobile 编号
+     * @return 学生信息
+     */
+    default StudentDO selectByMobile(String mobile){
+        return selectOne(new LambdaQueryWrapperX<StudentDO>()
+                .eqIfPresent(StudentDO::getMobile, mobile)
+        );
+    }
+
+
     default PageResult<StudentDO> selectPage(StudentPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<StudentDO>()
                 .eqIfPresent(StudentDO::getStudentNumber, reqVO.getStudentNumber())
@@ -48,5 +61,6 @@ public interface StudentMapper extends BaseMapperX<StudentDO> {
                 .betweenIfPresent(StudentDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(StudentDO::getId));
     }
+
 
 }

@@ -65,6 +65,11 @@ public class MentorServiceImpl implements MentorService {
     }
 
     @Override
+    public List<MentorDO> getAllMentors() {
+        return mentorMapper.selectList();
+    }
+
+    @Override
     public List<MentorDO> getMentorList(Collection<Long> ids) {
         return mentorMapper.selectBatchIds(ids);
     }
