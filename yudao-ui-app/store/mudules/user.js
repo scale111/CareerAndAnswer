@@ -1,6 +1,6 @@
 import { getUserInfo } from '@/api/user'
 import { passwordLogin, smsLogin, weixinMiniAppLogin, logout } from '@/api/auth'
-
+import { getrecruitment } from '@/api/recruitment.js'
 const AccessTokenKey = 'ACCESS_TOKEN'
 const RefreshTokenKey = 'REFRESH_TOKEN'
 
@@ -70,6 +70,7 @@ const user = {
       } else {
         return weixinMiniAppLogin(data)
           .then(res => {
+            console.log(res);
             commit('SET_TOKEN', res.data)
             return Promise.resolve(res)
           })
@@ -95,7 +96,15 @@ const user = {
     async ObtainUserInfo({ state, commit }) {
       const res = await getUserInfo()
       commit('SET_USER_INFO', res.data)
-    }
+    },
+    //获取招聘信息
+    ObtainRecruitment({ state, commit }) {
+      return getrecruitment()
+      .then(res =>{
+        console.log("res:")
+        console.log(res)
+      })
+    },
   }
 }
 export default user

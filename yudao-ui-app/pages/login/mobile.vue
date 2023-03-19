@@ -37,7 +37,7 @@
         </u-form-item>
 
         <view class="btn-group">
-          <u-button class="auth-btn" type="primary" customStyle="margin-top: 50px" @click="handleSubmit">立即登录</u-button>
+          <u-button class="auth-btn" type="primary" customStyle="margin-top: 50px" @click="handleSubmit()">微信登录</u-button>
         </view>
       </u--form>
     </view>
@@ -46,10 +46,12 @@
 
 <script>
 import { sendSmsCode } from '../../api/auth'
-
+import { passwordLogin, smsLogin, weixinMiniAppLogin, logout } from '@/api/auth'
 export default {
   data() {
     return {
+      userinfo:'',
+
       currentModeIndex: 0,
       loginModeList: ['密码登录', '验证码登录'],
       inputType: 'password',
@@ -98,12 +100,32 @@ export default {
       }
     }
   },
-  onLoad() {},
+  onLoad() {
+    this.wxLogin();
+  },
   onReady() {
     // 如果需要兼容微信小程序，并且校验规则中含有方法等，只能通过setRules方法设置规则
     this.$refs.form.setRules(this.rules)
   },
   methods: {
+    async wxLogin(){
+      uni.login({
+      	provider: 'weixin',
+      	success: res => {
+          console.log("code:")
+          console.log(res.code)
+      		weixinMiniAppLogin({
+      			appid: this.appid,
+      			code: res.code,
+      			// token: uni.getStorageSync('token'),
+      		}).then(res => {
+      			this.token = res.data.token;
+      			this.openid = res.data.openid;
+      		})
+      	}
+      });
+    },
+
     handleModeChange(index) {
       if (index !== this.currentModeIndex) {
         this.currentModeIndex = index
@@ -138,21 +160,22 @@ export default {
       }
     },
     handleSubmit() {
-      this.$refs.form.validate().then(res => {
-        uni.login({
-          provider: 'weixin',
-          success: res => {
-            let data = this.formData
-            data.socialType = 34 //WECHAT_MINI_APP 先指定固定值
-            data.socialCode = res.code
-            data.socialState = Math.random() // 该参数没有实际意义暂时传随机数
-            this.mobileLogin(data)
-          },
-          fail: res => {
-            this.mobileLogin(this.formData)
-          }
-        })
-      })
+
+      // this.$refs.form.validate().then(res => {
+      //   uni.login({
+      //     provider: 'weixin',
+      //     success: res => {
+      //       let data = this.formData
+      //       data.socialType = 34 //WECHAT_MINI_APP 先指定固定值
+      //       data.socialCode = res.code
+      //       data.socialState = Math.random() // 该参数没有实际意义暂时传随机数
+      //       this.mobileLogin(data)
+      //     },
+      //     fail: res => {
+      //       this.mobileLogin(this.formData)
+      //     }
+      //   })
+      // })
     },
     mobileLogin(data){
       this.$store.dispatch('Login', { type: this.currentModeIndex, data: data }).then(res => {

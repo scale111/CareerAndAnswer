@@ -1,6 +1,6 @@
 {
     "name" : "yudao-ui-app",
-    "appid" : "__UNI__CA099E3",
+    "appid" : "__UNI__B00FF07",
     "description" : "yudao-ui-app for ruoyi-vue-pro",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -50,7 +50,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wx48d7c38b46f2e81c",
+        "appid" : "wx1587418f7dc28b1b",
         "setting" : {
             "urlCheck" : false
         },

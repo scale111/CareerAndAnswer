@@ -11,7 +11,7 @@
       <view class="info-item">
         <view class="label">昵称：</view>
         <view class="info">
-          <u--input maxlength="10" border="none" v-model="userInfo.nickname" inputAlign="right" @change="handleNameChange"></u--input>
+          <u--input maxlength="10" border="none" type="nickname" v-model="userInfo.nickname" inputAlign="right" @change="handleNameChange"></u--input>
         </view>
       </view>
       <view class="info-item">

@@ -2,9 +2,10 @@
   <view class="container">
     <view class="user-header">
       <view class="user-info" @click="pageRouter('/pages/profile/profile')">
-        <u-avatar size="60" shape="square" :src="userInfo.avatar"></u-avatar>
+       <!-- <u-avatar size="60" shape="square" :src="userInfo.avatar"></u-avatar> -->
+        <u-avatar size="60" shape="square" src="/static/images/login/avatar.jpg"></u-avatar>
         <view class="info-text">
-          <view class="user-nickname">{{ hasLogin ? userInfo.nickname || '会员用户' : '匿名用户' }}</view>
+          <view class="user-nickname">{{ hasLogin ? userInfo.nickname || '微信用户' : '匿名用户' }}</view>
           <view class="user-mobile">{{ hasLogin ? userInfo.mobile || ' ' : '登录/注册' }}</view>
         </view>
       </view>
@@ -15,7 +16,11 @@
 
     <u-gap height="10" bgColor="#f3f3f3"></u-gap>
 
-    <view>
+<!--    <view class="usercard">
+      <uni-card></uni-card>
+    </view> -->
+
+    <!-- <view>
       <view class="order-header">
         <text class="order-title">我的订单</text>
         <view class="see-all" @click="pageRouter(orderPage, -1)">
@@ -32,7 +37,7 @@
           </u-grid-item>
         </u-grid>
       </view>
-    </view>
+    </view> -->
 
     <u-gap height="10" bgColor="#f3f3f3"></u-gap>
 
@@ -48,16 +53,17 @@
     <u-gap height="10" bgColor="#f3f3f3"></u-gap>
 
     <u-cell-group class="fun-list">
-      <u-cell class="fun-item" :border="false" icon="gift" title="分销中心" isLink></u-cell>
-      <u-cell class="fun-item" :border="false" icon="tags" title="领券中心" isLink></u-cell>
-      <u-cell class="fun-item" :border="false" icon="coupon" title="我的优惠券" isLink></u-cell>
-      <u-cell class="fun-item" :border="false" icon="map" title="收货地址" @click="pageRouter('/pages/address/list')" isLink></u-cell>
+      <u-cell class="fun-item" :border="false" icon="info-circle" title="个人资料" isLink></u-cell>
+      <u-cell class="fun-item" :border="false" icon="clock" title="我的预约" isLink></u-cell>
+      <u-cell class="fun-item" :border="false" icon="file-text" title="我的简历" isLink></u-cell>
+      <u-cell class="fun-item" :border="false" icon="setting" title="账号设置" isLink></u-cell>
     </u-cell-group>
   </view>
 </template>
 
 <script>
 import orderStatus from '@/common/orderStatus'
+import {getrecruitment} from '../../api/recruitment'
 
 export default {
   data() {
