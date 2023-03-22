@@ -74,15 +74,25 @@ public interface MemberUserService {
      */
     List<MemberUserDO> getUserListByNickname(String nickname);
 
+//    /**
+//     * 基于手机号创建用户。
+//     * 如果用户已经存在，则直接进行返回
+//     *
+//     * @param mobile 手机号
+//     * @param registerIp 注册 IP
+//     * @return 用户对象
+//     */
+//    MemberUserDO createUserIfAbsent(@Mobile String mobile, String registerIp);
+
     /**
-     * 基于手机号创建用户。
+     * 基于openid创建用户。
      * 如果用户已经存在，则直接进行返回
      *
-     * @param mobile 手机号
+     * @param openid
      * @param registerIp 注册 IP
      * @return 用户对象
      */
-    MemberUserDO createUserIfAbsent(@Mobile String mobile, String registerIp);
+    MemberUserDO createUserIfAbsent(@Mobile String openid, String registerIp);
 
     /**
      * 更新用户的最后登陆信息

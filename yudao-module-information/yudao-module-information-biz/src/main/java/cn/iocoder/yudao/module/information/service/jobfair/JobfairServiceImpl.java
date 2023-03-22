@@ -79,13 +79,9 @@ public class JobfairServiceImpl  implements JobfairService {
 
     @Override
     public List<JobfairDO> getAllJobfairs() {
-//        QueryWrapper<JobfairDO> wrapper = new QueryWrapper<>();
-//        //查询所有开启状态的数据
-//        wrapper.eq("status", 0);
-//        return jobfairMapper.selectList();
 
         //BaseMapperX进一步封装
-        return jobfairMapper.selectList("status",0);
+        return jobfairMapper.selectList(JobfairDO::getStatus,0);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package cn.iocoder.yudao.module.member.controller.app.auth;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
 import cn.iocoder.yudao.framework.security.config.SecurityProperties;
@@ -116,6 +118,14 @@ public class AppAuthController {
     @Operation(summary = "微信小程序的一键登录")
     public CommonResult<AppAuthLoginRespVO> weixinMiniAppLogin(@RequestBody @Valid AppAuthWeixinMiniAppLoginReqVO reqVO) {
         return success(authService.weixinMiniAppLogin(reqVO));
+    }
+
+
+    @PostMapping("/weixin-login")
+    @Operation(summary = "微信小程序登录")
+    @Parameter(name = "code", description = "临时登录凭证code", required = true)
+    public CommonResult<String> weixinLogin(String code) {
+        return success(authService.weixinLogin(code));
     }
 
 }

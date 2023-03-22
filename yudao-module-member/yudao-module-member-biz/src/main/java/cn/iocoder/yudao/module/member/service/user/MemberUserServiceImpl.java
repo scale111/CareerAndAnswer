@@ -115,29 +115,54 @@ public class MemberUserServiceImpl implements MemberUserService {
         return memberUserMapper.selectListByNicknameLike(nickname);
     }
 
+//    @Override
+//    public MemberUserDO createUserIfAbsent(String mobile, String registerIp) {
+//        // 用户已经存在
+//        MemberUserDO user = memberUserMapper.selectByMobile(mobile);
+//        if (user != null) {
+//            return user;
+//        }
+//        // 用户不存在，则进行创建
+//        return this.createUser(mobile, registerIp);
+//    }
+
     @Override
-    public MemberUserDO createUserIfAbsent(String mobile, String registerIp) {
+    public MemberUserDO createUserIfAbsent(String openid, String registerIp) {
         // 用户已经存在
-        MemberUserDO user = memberUserMapper.selectByMobile(mobile);
+        MemberUserDO user = memberUserMapper.selectByOpenid(openid);
         if (user != null) {
             return user;
         }
         // 用户不存在，则进行创建
-        return this.createUser(mobile, registerIp);
+        return this.createUser(openid, registerIp);
     }
 
-    private MemberUserDO createUser(String mobile, String registerIp) {
+    private MemberUserDO createUser(String openid, String registerIp) {
         // 生成密码
         String password = IdUtil.fastSimpleUUID();
         // 插入用户
         MemberUserDO user = new MemberUserDO();
-        user.setMobile(mobile);
+        user.setOpenid(openid);
         user.setStatus(CommonStatusEnum.ENABLE.getStatus()); // 默认开启
         user.setPassword(encodePassword(password)); // 加密密码
         user.setRegisterIp(registerIp);
+        user.setRole(0);
         memberUserMapper.insert(user);
         return user;
     }
+
+//    private MemberUserDO createUser(String mobile, String registerIp) {
+//        // 生成密码
+//        String password = IdUtil.fastSimpleUUID();
+//        // 插入用户
+//        MemberUserDO user = new MemberUserDO();
+//        user.setMobile(mobile);
+//        user.setStatus(CommonStatusEnum.ENABLE.getStatus()); // 默认开启
+//        user.setPassword(encodePassword(password)); // 加密密码
+//        user.setRegisterIp(registerIp);
+//        memberUserMapper.insert(user);
+//        return user;
+//    }
 
     @Override
     public void updateUserLogin(Long id, String loginIp) {

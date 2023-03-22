@@ -1,7 +1,11 @@
 package cn.iocoder.yudao.module.member.service.auth;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
+import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
+import cn.binarywang.wx.miniapp.config.WxMaConfig;
+import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
@@ -26,6 +30,8 @@ import cn.iocoder.yudao.module.system.enums.logger.LoginResultEnum;
 import cn.iocoder.yudao.module.system.enums.oauth2.OAuth2ClientConstants;
 import cn.iocoder.yudao.module.system.enums.sms.SmsSceneEnum;
 import cn.iocoder.yudao.module.system.enums.social.SocialTypeEnum;
+import com.binarywang.spring.starter.wxjava.miniapp.config.storage.WxMaInMemoryConfigStorageConfiguration;
+import com.binarywang.spring.starter.wxjava.miniapp.properties.WxMaProperties;
 import com.google.common.annotations.VisibleForTesting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -141,6 +147,24 @@ public class MemberAuthServiceImpl implements MemberAuthService {
 
         // 创建 Token 令牌，记录登录日志
         return createTokenAfterLoginSuccess(user, user.getMobile(), LoginLogTypeEnum.LOGIN_SOCIAL);
+    }
+
+    @Override
+    public String weixinLogin(String code) {
+        String openid;
+//        String sessionKey;
+        try{
+            WxMaJscode2SessionResult sessionInfo = wxMaService.getUserService().getSessionInfo(code);
+            openid = sessionInfo.getOpenid();
+//            sessionKey = sessionInfo.getSessionKey();
+//            System.out.println("openid ： " + openid);
+            // 获得获得注册用户
+            MemberUserDO user = userService.createUserIfAbsent(openid, getClientIP());
+            Assert.notNull(user, "获取用户失败，结果为空");
+            return openid;
+        }catch (Exception exception){
+            throw exception(AUTH_WEIXIN_CODE_ERROR);
+        }
     }
 
     private AppAuthLoginRespVO createTokenAfterLoginSuccess(MemberUserDO user, String mobile, LoginLogTypeEnum logType) {

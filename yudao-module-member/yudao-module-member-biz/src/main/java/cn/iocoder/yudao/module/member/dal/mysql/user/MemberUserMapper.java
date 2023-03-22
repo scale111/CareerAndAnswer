@@ -16,6 +16,9 @@ import cn.iocoder.yudao.module.member.controller.admin.user.vo.*;
  */
 @Mapper
 public interface MemberUserMapper extends BaseMapperX<MemberUserDO> {
+    default MemberUserDO selectByOpenid(String openid) {
+        return selectOne(MemberUserDO::getOpenid, openid);
+    }
 
     default MemberUserDO selectByMobile(String mobile) {
         return selectOne(MemberUserDO::getMobile, mobile);
