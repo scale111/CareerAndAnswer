@@ -77,6 +77,7 @@
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
+
       <el-table-column label="手机号" align="center" prop="mobile" />
       <el-table-column label="用户角色" align="center" prop="role">
         <template v-slot="scope">
@@ -119,11 +120,17 @@
         <el-form-item label="头像">
           <imageUpload v-model="form.avatar"/>
         </el-form-item>
-        <el-form-item label="状态" prop="status">
-          <el-select v-model="form.status" placeholder="请选择状态">
-            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.COMMON_STATUS)"
-                       :key="dict.value" :label="dict.label" :value="dict.value" />
-          </el-select>
+<!--        <el-form-item label="状态" prop="status">-->
+<!--          <el-select v-model="form.status" placeholder="请选择状态">-->
+<!--            <el-option v-for="dict in this.getDictDatas(DICT_TYPE.COMMON_STATUS)"-->
+<!--                       :key="dict.value" :label="dict.label" :value="dict.value" />-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
+        <el-form-item label="开启状态" prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio v-for="dict in statusDictDatas" :key="parseInt(dict.value)" :label="parseInt(dict.value)">
+              {{dict.label}}</el-radio>
+          </el-radio-group>
         </el-form-item>
         <el-form-item label="手机号" prop="mobile">
           <el-input v-model="form.mobile" placeholder="请输入手机号" />
@@ -161,6 +168,7 @@
 <script>
 import { createUser, updateUser, deleteUser, getUser, getUserPage, exportUserExcel } from "@/api/member/user";
 import ImageUpload from '@/components/ImageUpload';
+import {DICT_TYPE, getDictDatas} from "@/utils/dict";
 
 export default {
   name: "User",
@@ -209,7 +217,9 @@ export default {
         mobile: [{ required: true, message: "手机号不能为空", trigger: "blur" }],
         role: [{ required: true, message: "用户角色不能为空", trigger: "change" }],
         registerIp: [{ required: true, message: "注册 IP不能为空", trigger: "blur" }],
-      }
+      },
+      // 状态数据字典
+      statusDictDatas: getDictDatas(DICT_TYPE.COMMON_STATUS),
     };
   },
   created() {

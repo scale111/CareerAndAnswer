@@ -1,6 +1,7 @@
 package cn.iocoder.yudao.module.member.service.user;
 
 
+import cn.hutool.core.util.RandomUtil;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.module.member.controller.admin.user.vo.MemberUserCreateReqVO;
 import cn.iocoder.yudao.module.member.controller.admin.user.vo.MemberUserExportReqVO;
@@ -143,6 +144,7 @@ public class MemberUserServiceImpl implements MemberUserService {
         // 插入用户
         MemberUserDO user = new MemberUserDO();
         user.setOpenid(openid);
+        user.setNickname("user_"+RandomUtil.randomString(6));
         user.setStatus(CommonStatusEnum.ENABLE.getStatus()); // 默认开启
         user.setPassword(encodePassword(password)); // 加密密码
         user.setRegisterIp(registerIp);
