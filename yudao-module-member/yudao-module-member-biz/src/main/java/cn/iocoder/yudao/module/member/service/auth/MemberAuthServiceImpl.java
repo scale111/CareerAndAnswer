@@ -150,33 +150,44 @@ public class MemberAuthServiceImpl implements MemberAuthService {
     }
 
     @Override
-    public String weixinLogin(String code) {
+    public AppAuthLoginRespVO weixinLogin(AppAuthWxLoginReqVO reqVO) {
         String openid;
 //        String sessionKey;
         try{
-            WxMaJscode2SessionResult sessionInfo = wxMaService.getUserService().getSessionInfo(code);
+            WxMaJscode2SessionResult sessionInfo = wxMaService.getUserService().getSessionInfo(reqVO.getCode());
             openid = sessionInfo.getOpenid();
 //            sessionKey = sessionInfo.getSessionKey();
 //            System.out.println("openid ： " + openid);
             // 获得获得注册用户
             MemberUserDO user = userService.createUserIfAbsent(openid, getClientIP());
             Assert.notNull(user, "获取用户失败，结果为空");
-            return openid;
+            return createTokenAfterLoginSuccess(user, user.getOpenid(), LoginLogTypeEnum.LOGIN_SOCIAL);
         }catch (Exception exception){
             throw exception(AUTH_WEIXIN_CODE_ERROR);
         }
     }
 
-    private AppAuthLoginRespVO createTokenAfterLoginSuccess(MemberUserDO user, String mobile, LoginLogTypeEnum logType) {
+    private AppAuthLoginRespVO createTokenAfterLoginSuccess(MemberUserDO user, String openid, LoginLogTypeEnum logType) {
         // 插入登陆日志
-        createLoginLog(user.getId(), mobile, logType, LoginResultEnum.SUCCESS);
+        createLoginLog(user.getId(), openid, logType, LoginResultEnum.SUCCESS);
         // 创建 Token 令牌
         OAuth2AccessTokenRespDTO accessTokenRespDTO = oauth2TokenApi.createAccessToken(new OAuth2AccessTokenCreateReqDTO()
                 .setUserId(user.getId()).setUserType(getUserType().getValue())
                 .setClientId(OAuth2ClientConstants.CLIENT_ID_DEFAULT));
         // 构建返回结果
+        System.out.println(accessTokenRespDTO);
         return AuthConvert.INSTANCE.convert(accessTokenRespDTO);
     }
+//    private AppAuthLoginRespVO createTokenAfterLoginSuccess(MemberUserDO user, String mobile, LoginLogTypeEnum logType) {
+//        // 插入登陆日志
+//        createLoginLog(user.getId(), mobile, logType, LoginResultEnum.SUCCESS);
+//        // 创建 Token 令牌
+//        OAuth2AccessTokenRespDTO accessTokenRespDTO = oauth2TokenApi.createAccessToken(new OAuth2AccessTokenCreateReqDTO()
+//                .setUserId(user.getId()).setUserType(getUserType().getValue())
+//                .setClientId(OAuth2ClientConstants.CLIENT_ID_DEFAULT));
+//        // 构建返回结果
+//        return AuthConvert.INSTANCE.convert(accessTokenRespDTO);
+//    }
 
     @Override
     public String getSocialAuthorizeUrl(Integer type, String redirectUri) {
@@ -203,14 +214,14 @@ public class MemberAuthServiceImpl implements MemberAuthService {
         return user;
     }
 
-    private void createLoginLog(Long userId, String mobile, LoginLogTypeEnum logType, LoginResultEnum loginResult) {
+    private void createLoginLog(Long userId, String openid, LoginLogTypeEnum logType, LoginResultEnum loginResult) {
         // 插入登录日志
         LoginLogCreateReqDTO reqDTO = new LoginLogCreateReqDTO();
         reqDTO.setLogType(logType.getType());
         reqDTO.setTraceId(TracerUtils.getTraceId());
         reqDTO.setUserId(userId);
         reqDTO.setUserType(getUserType().getValue());
-        reqDTO.setUsername(mobile);
+        reqDTO.setUsername(openid);
         reqDTO.setUserAgent(ServletUtils.getUserAgent());
         reqDTO.setUserIp(getClientIP());
         reqDTO.setResult(loginResult.getResult());

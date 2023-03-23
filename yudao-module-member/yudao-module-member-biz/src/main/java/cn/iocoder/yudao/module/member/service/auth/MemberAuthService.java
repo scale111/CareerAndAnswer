@@ -55,10 +55,10 @@ public interface MemberAuthService {
     /**
      * 微信小程序登录
      *
-     * @param code
+     * @param reqVO 登录信息
      * @return openid
      */
-    String weixinLogin(String code);
+    AppAuthLoginRespVO weixinLogin(AppAuthWxLoginReqVO reqVO);
 
     /**
      * 获得社交认证 URL

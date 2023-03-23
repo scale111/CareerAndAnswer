@@ -124,8 +124,8 @@ public class AppAuthController {
     @PostMapping("/weixin-login")
     @Operation(summary = "微信小程序登录")
     @Parameter(name = "code", description = "临时登录凭证code", required = true)
-    public CommonResult<String> weixinLogin(String code) {
-        return success(authService.weixinLogin(code));
+    public CommonResult<AppAuthLoginRespVO> weixinLogin(@RequestBody @Valid AppAuthWxLoginReqVO reqVO) {
+        return success(authService.weixinLogin(reqVO));
     }
 
 }
