@@ -7,6 +7,9 @@ import uView from '@/uni_modules/uview-ui'
 // vuex
 import store from './store'
 
+//icon
+import './static/icon/iconfont.css'
+
 Vue.config.productionTip = false
 Vue.prototype.$store = store
 

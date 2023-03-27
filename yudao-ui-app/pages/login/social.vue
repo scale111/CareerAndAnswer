@@ -47,10 +47,11 @@
         uni.login({
           provider: 'weixin',
           success: res => {
+            console.log(res)
             this.$store.dispatch('Login', {
               type: 2,
               data: {
-                loginCode: res.code
+                code: res.code
               }
             }).then(res => {
               uni.$u.toast('登录成功')

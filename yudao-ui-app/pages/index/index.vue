@@ -13,17 +13,7 @@
       <u-swiper :list="bannerList" indicator indicatorMode="line" circular></u-swiper>
     </view>
     <!-- <yd-banner :banner-list="bannerList"></yd-banner> -->
-
     <u-gap height="20px"></u-gap>
-
-    <!--宫格菜单按钮-->
-    <!-- <u-grid :border="false" col="4">
-      <u-grid-item v-for="(item, index) in menuList" :key="index">
-        <u-icon :name="item.icon" :size="40"></u-icon>
-        <text class="grid-title">{{ item.title }}</text>
-      </u-grid-item>
-    </u-grid> -->
-
     <!--宫格菜单按钮-->
     <u-scroll-list :indicator="indicator">
       <u-grid :border="false" col="4">
@@ -50,15 +40,20 @@
 
     <!--导师面对面-->
     <view>
-      <u-cell-group customStyle="padding:1%;">
+      <u-cell-group customStyle="padding:2%;">
         <u-cell title="导师面对面" value="查看更多" isLink url="/pages/teacher/teacher"></u-cell>
       </u-cell-group>
-      <u-grid :border="false" col="2">
-        <u-grid-item v-for="(item,index) in teachers" :key="index" customStyle="margin-top:3%">
+      <u-grid :border="false" customStyle="padding:2%">
+        <u-grid-item v-for="(item,index) in teachers" :key="index" customStyle="width:50%">
+          <u-image @click="navigatorTeacher(item.id)" :src="item.photo" mode="aspectFit" radius="1" height="30vh"></u-image> <text
+            style="font-size: 5vw;text-align: center;">{{item.name}}</text> <text
+            style="color: gray;font-size: 4vw;text-align: center;">{{item.college}}</text>
+        </u-grid-item>
+        <!-- <u-grid-item v-for="(item,index) in teachers" :key="index" customStyle="margin-top:3%">
           <u-image :src="item.src" mode="aspectFit" radius="100"></u-image>
           <text style="font-size: 35rpx;">{{item.name}}</text>
           <text style="color: gray;font-size: 20rpx;">{{item.major}}</text>
-        </u-grid-item>
+        </u-grid-item> -->
       </u-grid>
     </view>
     <view>
@@ -83,7 +78,9 @@
     getBannerData,
     getNoticeData
   } from '../../api/index'
-
+  import {
+    getTeacherInfo
+  } from '../../api/teacher.js'
   export default {
     components: {},
     data() {
@@ -126,7 +123,8 @@
           },
           {
             icon: '/static/images/grid/lecture.png',
-            title: '宣讲会'
+            title: '宣讲会',
+            link: '/pages/index/careertalk'
           }
         ],
         menuList2: [{
@@ -157,22 +155,22 @@
         ],
         noticeList: ['寒雨连江夜入吴', '平明送客楚山孤', '洛阳亲友如相问', '一片冰心在玉壶'],
         teachers: [{
-            src: "/static/images/teacher/teacher1.jpg",
+            photo: "/static/images/teacher/teacher1.jpg",
             name: "温慧敏",
             major: "化学工程学院"
           },
           {
-            src: "/static/images/teacher/teacher2.jpg",
-            name: "李小年",
-            major: "化学工程学院"
+            photo: "/static/images/teacher/teacher2.jpg",
+            name: "郑建炜",
+            major: "计算机科学与技术学院、软件学院"
           },
           {
-            src: "/static/images/teacher/teacher3.jpg",
+            photo: "/static/images/teacher/teacher3.jpg",
             name: "陈巧丽",
             major: "化学工程学院"
           },
           {
-            src: "/static/images/teacher/teacher4.jpg",
+            photo: "/static/images/teacher/teacher4.jpg",
             name: "艾青林",
             major: "机械工程学院"
           }
@@ -181,8 +179,9 @@
       }
     },
     onLoad() {
-      this.loadBannerData()
-      this.loadNoticeData()
+      // this.loadBannerData()
+      // this.loadNoticeData()
+      this.loadTeacherData()
     },
     methods: {
       //监听宫格点击回调参数
@@ -197,7 +196,18 @@
           })
         }
       },
-
+      //获取导师信息
+      loadTeacherData() {
+        getTeacherInfo().then(res => {
+          this.teachers = res.data
+        })
+      },
+      //进入到导师详情页面
+      navigatorTeacher(id){
+        uni.navigateTo({
+          url:'/pages/teacher/teacherDetail?id=' + id
+        })
+      },
       loadBannerData() {
         getBannerData().then(res => {
           this.bannerList = res.data

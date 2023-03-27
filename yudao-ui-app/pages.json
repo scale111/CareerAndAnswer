@@ -156,26 +156,57 @@
         "enablePullDownRefresh": false
       }
 
+    }, {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+
+    }, {
+      "path": "pages/index/recruitment",
+      "style": {
+        "navigationBarTitleText": "招聘公告",
+        "enablePullDownRefresh": false
+      }
+
+    }, {
+      "path": "pages/index/recruitmentDetail",
+      "style": {
+        "navigationBarTitleText": "详情",
+        "enablePullDownRefresh": false
+      }
+
+    }, {
+      "path": "pages/index/jobfair",
+      "style": {
+        "navigationBarTitleText": "招聘会",
+        "enablePullDownRefresh": false
+      }
+
+    }, {
+      "path": "pages/index/careertalk",
+      "style": {
+        "navigationBarTitleText": "宣讲会",
+        "enablePullDownRefresh": false
+      }
+
+    }, {
+      "path": "pages/teacher/teacherDetail",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+
+    }, {
+      "path": "pages/index/careertalkDetail",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+
     }
-      ,{
-            "path" : "pages/login/login",
-            "style" :
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-
-        }
-        ,{
-            "path" : "pages/index/recruitment",
-            "style" :
-            {
-                "navigationBarTitleText": "招聘公告",
-                "enablePullDownRefresh": false
-            }
-
-        }
-    ],
+  ],
   "tabBar": {
     "selectedColor": "#333333",
     "color": "#bfbfbf",

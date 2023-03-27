@@ -2,16 +2,16 @@
   <view class="container">
     <view class="user-header">
       <view class="user-info" @click="pageRouter('/pages/profile/profile')">
-       <!-- <u-avatar size="60" shape="square" :src="userInfo.avatar"></u-avatar> -->
-        <u-avatar size="60" shape="square" src="/static/images/login/avatar.jpg"></u-avatar>
+       <u-avatar size="60" shape="square" :src="userInfo.avatar"></u-avatar>
+        <!-- <u-avatar size="60" shape="square" src="/static/images/login/avatar.jpg"></u-avatar> -->
         <view class="info-text">
           <view class="user-nickname">{{ hasLogin ? userInfo.nickname || '微信用户' : '匿名用户' }}</view>
           <view class="user-mobile">{{ hasLogin ? userInfo.mobile || ' ' : '登录/注册' }}</view>
         </view>
       </view>
-      <view class="user-setting">
+<!--      <view class="user-setting">
         <u-icon v-if="hasLogin" name="setting" color="#939393" size="22" @click="pageRouter('/pages/setting/setting')"></u-icon>
-      </view>
+      </view> -->
     </view>
 
     <u-gap height="10" bgColor="#f3f3f3"></u-gap>
@@ -53,7 +53,7 @@
     <u-gap height="10" bgColor="#f3f3f3"></u-gap>
 
     <u-cell-group class="fun-list">
-      <u-cell class="fun-item" :border="false" icon="info-circle" title="个人资料" isLink></u-cell>
+      <u-cell class="fun-item" :border="false" icon="info-circle" title="个人资料" isLink url="/pages/profile/profile"></u-cell>
       <u-cell class="fun-item" :border="false" icon="clock" title="我的预约" isLink></u-cell>
       <u-cell class="fun-item" :border="false" icon="file-text" title="我的简历" isLink></u-cell>
       <u-cell class="fun-item" :border="false" icon="setting" title="账号设置" isLink></u-cell>

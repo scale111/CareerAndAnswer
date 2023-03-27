@@ -68,6 +68,8 @@ const user = {
             return Promise.reject(err)
           })
       } else {
+        console.log("weixinMiniAppLogin:");
+        console.log(data)
         return weixinMiniAppLogin(data)
           .then(res => {
             console.log(res);

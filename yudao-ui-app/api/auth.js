@@ -8,7 +8,7 @@ export const sendSmsCode = data => http.post('/member/auth/send-sms-code', data)
 //使用手机 + 验证码登录
 export const smsLogin = data => http.post('/member/auth/sms-login', data)
 //微信小程序的一键登录
-export const weixinMiniAppLogin = data => http.post('/member/auth/weixin-mini-app-login', data)
+export const weixinMiniAppLogin = data => http.post('/member/auth/weixin-login', data)
 //刷新令牌
 export const  refreshToken = data => http.post('/member/auth/refresh-token', {data})
 //退出登录
