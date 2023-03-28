@@ -1,10 +1,7 @@
 package cn.iocoder.yudao.module.information.controller.app.careertalk;
 
-import cn.iocoder.yudao.module.information.controller.app.jobfair.vo.AppJobfairConcernsVO;
-import cn.iocoder.yudao.module.information.convert.jobfair.JobfairConvert;
-import cn.iocoder.yudao.module.information.dal.dataobject.jobfair.JobfairDO;
 import cn.iocoder.yudao.module.information.dal.mysql.careertalk.CareertalkMapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -13,9 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
 
-import javax.validation.constraints.*;
-import javax.validation.*;
-import javax.servlet.http.*;
 import java.util.*;
 import java.io.IOException;
 

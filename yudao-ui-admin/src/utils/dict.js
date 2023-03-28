@@ -10,6 +10,12 @@ export const DICT_TYPE = {
   COMMON_STATUS: 'common_status',
   TERMINAL: 'terminal',
 
+  //============ forum 模块 ==========
+  //审核状态
+  AUDIT_STATUS: 'audit_status',
+  //置顶状态
+  STICKY_STATUS:'sticky_status',
+
 //============ MEMBER 模块 ==========
   //用户登录角色：0-游客 1-学生 2-导师
   MEMBER_USER_ROLE: 'member_user_role',
