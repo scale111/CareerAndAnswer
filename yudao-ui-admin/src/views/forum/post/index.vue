@@ -103,30 +103,30 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-<!--        <el-form-item label="发帖人ID" prop="userId">-->
-<!--          <el-input v-model="form.userId" placeholder="请输入发帖人ID" />-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="发帖人昵称" prop="userNickname">-->
-<!--          <el-input v-model="form.userNickname" placeholder="请输入发帖人昵称" />-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="发帖人头像">-->
-<!--          <imageUpload v-model="form.avatar"/>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="标题" prop="title">-->
-<!--          <el-input v-model="form.title" placeholder="请输入标题" />-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="内容">-->
-<!--          <editor v-model="form.text" :min-height="192"/>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="评论数" prop="commentNumber">-->
-<!--          <el-input v-model="form.commentNumber" placeholder="请输入评论数" />-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="点赞数" prop="likeNumber">-->
-<!--          <el-input v-model="form.likeNumber" placeholder="请输入点赞数" />-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="不喜欢数" prop="unlikeNumber">-->
-<!--          <el-input v-model="form.unlikeNumber" placeholder="请输入不喜欢数" />-->
-<!--        </el-form-item>-->
+        <el-form-item label="发帖人ID" prop="userId">
+          <el-input v-model="form.userId" placeholder="请输入发帖人ID" />
+        </el-form-item>
+        <el-form-item label="发帖人昵称" prop="userNickname">
+          <el-input v-model="form.userNickname" placeholder="请输入发帖人昵称" />
+        </el-form-item>
+        <el-form-item label="发帖人头像">
+          <imageUpload v-model="form.avatar"/>
+        </el-form-item>
+        <el-form-item label="标题" prop="title">
+          <el-input v-model="form.title" placeholder="请输入标题" />
+        </el-form-item>
+        <el-form-item label="内容">
+          <editor v-model="form.text" :min-height="192"/>
+        </el-form-item>
+        <el-form-item label="评论数" prop="commentNumber">
+          <el-input v-model="form.commentNumber" placeholder="请输入评论数" />
+        </el-form-item>
+        <el-form-item label="点赞数" prop="likeNumber">
+          <el-input v-model="form.likeNumber" placeholder="请输入点赞数" />
+        </el-form-item>
+        <el-form-item label="不喜欢数" prop="unlikeNumber">
+          <el-input v-model="form.unlikeNumber" placeholder="请输入不喜欢数" />
+        </el-form-item>
         <el-form-item label="置顶状态" prop="sticky">
           <el-select v-model="form.sticky" placeholder="请选择置顶状态">
             <el-option v-for="dict in this.getDictDatas(DICT_TYPE.STICKY_STATUS)"

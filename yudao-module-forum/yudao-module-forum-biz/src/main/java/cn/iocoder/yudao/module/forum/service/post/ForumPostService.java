@@ -56,10 +56,9 @@ public interface ForumPostService {
     /**
      * 获得帖子列表
      *
-     * @param ids 编号
      * @return 帖子列表
      */
-    List<ForumPostDO> getPostList(Collection<Long> ids);
+    List<ForumPostDO> getAllPostList();
 
     /**
      * 获得帖子分页

@@ -46,6 +46,14 @@ public interface CommentService {
     void deleteComment(Long id);
 
     /**
+     * 获得评论列表
+     *
+     * @param postId 帖子id
+     * @return 评论列表
+     */
+    List<CommentDO> getCommentListByPostId(Long postId);
+
+    /**
      * 获得评论
      *
      * @param id 编号

@@ -75,8 +75,8 @@ public class ForumPostServiceImpl implements ForumPostService {
     }
 
     @Override
-    public List<ForumPostDO> getPostList(Collection<Long> ids) {
-        return forumPostMapper.selectBatchIds(ids);
+    public List<ForumPostDO> getAllPostList() {
+        return forumPostMapper.selectList();
     }
 
     @Override

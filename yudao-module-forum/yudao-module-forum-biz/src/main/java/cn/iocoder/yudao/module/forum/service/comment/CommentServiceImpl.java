@@ -63,6 +63,11 @@ public class CommentServiceImpl implements CommentService {
         commentMapper.deleteById(id);
     }
 
+    @Override
+    public List<CommentDO> getCommentListByPostId(Long postId) {
+        return null;
+    }
+
     private void validateCommentExists(Long id) {
         if (commentMapper.selectById(id) == null) {
             throw exception(COMMENT_NOT_EXISTS);

@@ -33,23 +33,18 @@ public class AppForumPostBaseVO {
     private String text;
 
     @Schema(description = "评论数", required = true)
-    @NotNull(message = "评论数不能为空")
     private Integer commentNumber;
 
     @Schema(description = "点赞数", required = true)
-    @NotNull(message = "点赞数不能为空")
     private Integer likeNumber;
 
     @Schema(description = "不喜欢数", required = true)
-    @NotNull(message = "不喜欢数不能为空")
     private Integer unlikeNumber;
 
     @Schema(description = "置顶状态", required = true, example = "0")
-    @NotNull(message = "置顶状态不能为空")
     private Byte sticky;
 
     @Schema(description = "审核状态", required = true, example = "2")
-    @NotNull(message = "审核状态不能为空")
     private Byte auditStatus;
 
 }

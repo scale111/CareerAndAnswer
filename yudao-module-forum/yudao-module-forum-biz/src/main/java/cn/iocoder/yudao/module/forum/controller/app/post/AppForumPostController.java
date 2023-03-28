@@ -62,12 +62,11 @@ public class AppForumPostController {
         return success(ForumPostConvert.INSTANCE.appConvert(post));
     }
 
-    @GetMapping("/list")
-    @Operation(summary = "获得帖子列表")
-    @Parameter(name = "ids", description = "编号列表", required = true, example = "1024,2048")
+    @GetMapping("/getall")
+    @Operation(summary = "获得所有帖子")
 
-    public CommonResult<List<AppForumPostRespVO>> getPostList(@RequestParam("ids") Collection<Long> ids) {
-        List<ForumPostDO> list = postService.getPostList(ids);
+    public CommonResult<List<AppForumPostRespVO>> getAllPostList() {
+        List<ForumPostDO> list = postService.getAllPostList();
         return success(ForumPostConvert.INSTANCE.appConvertList(list));
     }
 

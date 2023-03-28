@@ -70,14 +70,14 @@ public class ForumPostController {
         return success(ForumPostConvert.INSTANCE.convert(post));
     }
 
-    @GetMapping("/list")
-    @Operation(summary = "获得帖子列表")
-    @Parameter(name = "ids", description = "编号列表", required = true, example = "1024,2048")
-    @PreAuthorize("@ss.hasPermission('forum:post:query')")
-    public CommonResult<List<ForumPostRespVO>> getPostList(@RequestParam("ids") Collection<Long> ids) {
-        List<ForumPostDO> list = postService.getPostList(ids);
-        return success(ForumPostConvert.INSTANCE.convertList(list));
-    }
+//    @GetMapping("/list")
+//    @Operation(summary = "获得帖子列表")
+//    @Parameter(name = "ids", description = "编号列表", required = true, example = "1024,2048")
+//    @PreAuthorize("@ss.hasPermission('forum:post:query')")
+//    public CommonResult<List<ForumPostRespVO>> getPostList(@RequestParam("ids") Collection<Long> ids) {
+//        List<ForumPostDO> list = postService.getPostList(ids);
+//        return success(ForumPostConvert.INSTANCE.convertList(list));
+//    }
 
     @GetMapping("/page")
     @Operation(summary = "获得帖子分页")

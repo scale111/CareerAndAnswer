@@ -54,23 +54,34 @@ public class AppCommentController {
         return success(true);
     }
 
-    @GetMapping("/get")
-    @Operation(summary = "获得评论")
-    @Parameter(name = "id", description = "编号", required = true, example = "1024")
-
-    public CommonResult<AppCommentRespVO> getComment(@RequestParam("id") Long id) {
-        CommentDO comment = commentService.getComment(id);
-        return success(CommentConvert.INSTANCE.appConvert(comment));
-    }
 
     @GetMapping("/list")
     @Operation(summary = "获得评论列表")
-    @Parameter(name = "ids", description = "编号列表", required = true, example = "1024,2048")
+    @Parameter(name = "postId", description = "帖子id", required = true, example = "6")
 
-    public CommonResult<List<AppCommentRespVO>> getCommentList(@RequestParam("ids") Collection<Long> ids) {
-        List<CommentDO> list = commentService.getCommentList(ids);
+    public CommonResult<List<AppCommentRespVO>> getCommentListByPostId(@RequestParam("postId") Long postId) {
+        List<CommentDO> list = commentService.getCommentListByPostId(postId);
         return success(CommentConvert.INSTANCE.appConvertList(list));
     }
+
+
+//    @GetMapping("/get")
+//    @Operation(summary = "获得评论")
+//    @Parameter(name = "id", description = "编号", required = true, example = "1024")
+//
+//    public CommonResult<AppCommentRespVO> getComment(@RequestParam("id") Long id) {
+//        CommentDO comment = commentService.getComment(id);
+//        return success(CommentConvert.INSTANCE.appConvert(comment));
+//    }
+
+//    @GetMapping("/list")
+//    @Operation(summary = "获得评论列表")
+//    @Parameter(name = "ids", description = "编号列表", required = true, example = "1024,2048")
+//
+//    public CommonResult<List<AppCommentRespVO>> getCommentList(@RequestParam("ids") Collection<Long> ids) {
+//        List<CommentDO> list = commentService.getCommentList(ids);
+//        return success(CommentConvert.INSTANCE.appConvertList(list));
+//    }
 
 
 }
